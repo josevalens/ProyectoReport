@@ -24,7 +24,7 @@ namespace REPORTECRUD.Data
                 conexion.Open();
 
                 //Comando a ejecutar
-                SqlCommand cmd = new SqlCommand("sp_Listar", conexion);
+                SqlCommand cmd = new SqlCommand("ObtenerReportes", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
@@ -33,7 +33,7 @@ namespace REPORTECRUD.Data
                     {
                         oCrear.Add(new Reporte()
                         {
-                            IdReporte = Convert.ToInt32(dr["IdReporte0"]),
+                            IdReporte = Convert.ToInt32(dr["IdReporte"]),
                             ubicacion = dr["ubicacion"].ToString(),
                             TipoReporte = dr["TipoReporte"].ToString(),
                             FechaCreacion = (DateTime)dr["FechaCreacion"],
