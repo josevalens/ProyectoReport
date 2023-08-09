@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "REPORTECRUD", "REPORTECRUD\REPORTECRUD.csproj", "{F5A695A6-755F-410B-82BA-EC1B1E880589}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5A695A6-755F-410B-82BA-EC1B1E880589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5A695A6-755F-410B-82BA-EC1B1E880589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5A695A6-755F-410B-82BA-EC1B1E880589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5A695A6-755F-410B-82BA-EC1B1E880589}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5C7250F-9513-47C8-9ECD-843DC956FF3C}
+	EndGlobalSection
+EndGlobal

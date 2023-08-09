@@ -1,0 +1,33 @@
+﻿@model Reporte;
+@{
+    ViewData["Title"] = "Eliminar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Eliminar</h1>
+<div class="card col-8">
+    <div class="card-header">
+        Eliminar Reporte
+    </div>
+    <div class="card-body justify-content-center">
+        <form asp-action="Eliminar" asp-controller="ReporteController" method="post">
+            <input asp-for="IdReporte" type="hidden" class="form-control"></>
+            <div class="alert alert-danger" role="alert">
+                ¿Deseas eliminar el reporte: @Html.DisplayFor(m=>m.IdReporte)?
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <button type="submit" class="btn btn-danger mb-3 btn-sm">Eliminar</button>
+                <a asp-action="Listar" asp-controller="ReporteController" class="btn btn-warning btn-sm">Volver a la lista</a>
+            </div>
+
+
+
+        </form>
+
+    </div>
+
+
+
+
+</div>
