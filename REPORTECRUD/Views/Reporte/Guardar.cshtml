@@ -1,4 +1,4 @@
-﻿@model Reporte;
+﻿@model REPORTECRUD.Models.Reporte;
 @{
     ViewData["Title"] = "Guardar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,7 +10,7 @@
         Crear Contacto
     </div>
     <div class="card-body justify-content-center">
-        <form asp-action="Guardar" asp-controller="ReporteController" method="post">
+        <form asp-action="Guardar" asp-controller="Reporte" method="post">
             <div class="col-md-4 mb-3">
                 <label for="staticEmail2">Ubicacion</label>
                 <input asp-for="ubicacion" type="text" class="form-control" />
@@ -22,20 +22,21 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label for="staticEmail2">Fecha creacion</label>
-                <input asp-for="FechaCreacion" type="datetime" class="form-control" />
+                <input asp-for="FechaCreacion" type="date" class="form-control" />
             </div>
             <div class="col-md-4 mb-3">
                 <label for="staticEmail2">Problematica</label>
                 <input asp-for="Problematica" type="text" class="form-control" />
             </div>
-            <div class="col-md-4 mb-3">
-                <label for="staticEmail2">IdUsuario</label>
-                <input asp-for="IdReporte" type="text" class="form-control" />
-            </div>
+            
             <div class="col-md-m4 mb-3">
-
+              
+                    <button type="submit" class="sign">Guardar</button>
+                   
+            
+                <!--
                 <a asp-action="Listar" asp-controller="Reporte" class="btn btn-warning btn-sm">Volver a la lista</a>
-                <button type="submit" class="btn btn-primary mb-3">Confirmar</button>
+                <a asp-action="Listar" asp-controller="Reporte" class="btn btn-primary mb-3">Confirmar</a>-->
             </div>
         </form>
     </div>

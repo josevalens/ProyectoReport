@@ -25,6 +25,9 @@ app.Run();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller:ReporteController}/{action=Guardar}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller:SoporteController}/{action=Guardar}/{id?}");
 
 //services
 

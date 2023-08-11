@@ -1,0 +1,26 @@
+﻿@model SoporteTecnico;
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar</h1>
+<div class="card col-8">
+    <div class="card header">
+        Editar Soporte
+    </div>
+    <div class="card-body justify-content-center">
+        <form asp-action="Editar" asp-controller="Soporte" method="post">
+            <input asp-for="IdSoporteTec" type="hidden" class="form-control" />
+            <div class="col-md-4 mb-3">
+                <label for="staticEmail2">Mensaje</label>
+                <input asp-for="Mensaje" type="text" class="form-control" />
+                <span asp-validation-for="Mensaje" class="text-danger"></span>
+            </div>
+            <div class="col-md-m4 mb-3">
+                <button type="submit">GUARDAR</button>
+                <a asp-action="Listar" asp-controller="Soporte" class="btn btn-warning btn-sn">volver a la lista</a>
+            </div>
+        </form>
+    </div>
+</div>

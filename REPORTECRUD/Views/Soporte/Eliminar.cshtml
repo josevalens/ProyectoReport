@@ -1,0 +1,26 @@
+﻿@model REPORTECRUD.Models.SoporteTecnico
+
+@{
+    ViewData["Title"] = "Eliminar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Eliminar</h1>
+<div class="card col-8">
+    <div class="card-header">
+        Eliminar Soporte
+    </div>
+    <div class="card-body justify-content-center">
+        <form asp-action="Eliminar" asp-controller="Soporte" method="post">
+            <input asp-for="IdSoporteTec" type="hidden" class="form-control" />
+            <div class="alert alert-danger" role="alert">
+                ¿Deseas eliminar el Mensaje: @Html.DisplayFor(model => model.IdSoporteTec)?
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <input type="submit" value="Eliminar" asp-action="Eliminar" asp-controller="Soporte" class="btn btn-primary" />
+                <a asp-action="Listar" asp-controller="Soporte" class="btn btn-warning btn-sn">Volver a la lista</a>
+            </div>
+        </form>
+    </div>
+</div>

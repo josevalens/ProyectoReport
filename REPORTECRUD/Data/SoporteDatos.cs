@@ -7,12 +7,12 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace REPORTECRUD.Data
 {
-    public class ReporteDatos
+    public class SoporteDatos
     {
-        public List<Reporte> Listar()
+        public List<SoporteTecnico> Listar()
         {
             //Crear Lista Vacia
-            var oCrear = new List<Reporte>();
+            var oCrear = new List<SoporteTecnico>();
 
             //Crear instacia
             var cr = new Conexion();
@@ -24,20 +24,18 @@ namespace REPORTECRUD.Data
                 conexion.Open();
 
                 //Comando a ejecutar
-                SqlCommand cmd = new SqlCommand("ObtenerReportes", conexion);
+                SqlCommand cmd = new SqlCommand("SeleccionarSoporteTecnico", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oCrear.Add(new Reporte()
+                        oCrear.Add(new SoporteTecnico()
                         {
-                            IdReporte = Convert.ToInt32(dr["IdReporte"]),
-                            ubicacion = dr["ubicacion"].ToString(),
-                            TipoReporte = dr["TipoReporte"].ToString(),
-                            FechaCreacion = (DateTime)dr["FechaCreacion"],
-                            Problematica = dr["Problematica"].ToString(),
+                            IdSoporteTec = Convert.ToInt32(dr["IdSoporteTec"]),
+                            Mensaje = dr["Mensaje"].ToString(),
+                            
                         });
                     }
                 }
@@ -45,33 +43,31 @@ namespace REPORTECRUD.Data
             return oCrear;
         }
 
-        public Reporte ObtenerReportes(int IdReporte)
+        public SoporteTecnico ObtenerSoportes(int IdSoporteTec)
         {
-            var oReporte = new Reporte();
+            var oSoporte = new SoporteTecnico();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSql()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("ObtenerReporteId", conexion);
-                cmd.Parameters.AddWithValue("IdReporte", IdReporte);
+                SqlCommand cmd = new SqlCommand("ObtenerSoporteId", conexion);
+                cmd.Parameters.AddWithValue("IdSoporteTec", IdSoporteTec);
                 cmd.CommandType = CommandType.StoredProcedure;
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oReporte.IdReporte = Convert.ToInt32(dr["IdReporte"]);
-                        oReporte.ubicacion = dr["ubicacion"].ToString();
-                        oReporte.TipoReporte = dr["TipoReporte"].ToString();
-                        oReporte.FechaCreacion = (DateTime)dr["FechaCreacion"];
-                        oReporte.Problematica = dr["Problematica"].ToString();
+                        oSoporte.IdSoporteTec = Convert.ToInt32(dr["IdSoporteTec"]);
+                        oSoporte.Mensaje = dr["Mensaje"].ToString();
+                       
                     }
                 }
             }
-            return oReporte;
+            return oSoporte;
         }
 
-        public bool InsertarReporte(Reporte model)
+        public bool InsertarSoporte(SoporteTecnico model)
         {
             bool respuesta;
             try
@@ -80,11 +76,10 @@ namespace REPORTECRUD.Data
                 using (var conexion = new SqlConnection(cn.getCadenaSql()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("InsertarReporte", conexion);
-                    cmd.Parameters.AddWithValue("Ubicacion", model.ubicacion);
-                    cmd.Parameters.AddWithValue("TipoReporte", model.TipoReporte);
-                    cmd.Parameters.AddWithValue("FechaCreacion", model.FechaCreacion);
-                    cmd.Parameters.AddWithValue("Problematica", model.Problematica);
+                    SqlCommand cmd = new SqlCommand("InsertarSoporteTecnico", conexion);
+                    cmd.Parameters.AddWithValue("mensaje", model.Mensaje);
+                    
+                    
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -98,7 +93,7 @@ namespace REPORTECRUD.Data
             return respuesta;
 
         }
-        public bool ActualizarReporte(Reporte model)
+        public bool ActualizarSoporte(SoporteTecnico model)
         {
             bool respuesta;
             try
@@ -107,12 +102,9 @@ namespace REPORTECRUD.Data
                 using (var conexion = new SqlConnection(cn.getCadenaSql()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("ActualizarReporte", conexion);
-                    cmd.Parameters.AddWithValue("IdReporte", model.IdReporte);
-                    cmd.Parameters.AddWithValue("Ubicacion", model.ubicacion);
-                    cmd.Parameters.AddWithValue("TipoReporte", model.TipoReporte);
-                    cmd.Parameters.AddWithValue("FechaCreacion", model.FechaCreacion);
-                    cmd.Parameters.AddWithValue("Problematica", model.Problematica);
+                    SqlCommand cmd = new SqlCommand("ActualizarSoporteTecnico", conexion);
+                    cmd.Parameters.AddWithValue("IdSoporteTec", model.IdSoporteTec);
+                    cmd.Parameters.AddWithValue("Mensaje", model.Mensaje);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -125,7 +117,7 @@ namespace REPORTECRUD.Data
             }
             return respuesta;
         }
-        public bool EliminarReportes(int IdReporte)
+        public bool EliminarSoporteTecnico(int IdSoporteTec)
         {
             bool respuesta;
             try
@@ -134,8 +126,8 @@ namespace REPORTECRUD.Data
                 using (var conexion = new SqlConnection(cn.getCadenaSql()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("EliminarReporte", conexion);
-                    cmd.Parameters.AddWithValue("IdReporte", IdReporte);
+                    SqlCommand cmd = new SqlCommand("EliminarSoporteTecnico", conexion);
+                    cmd.Parameters.AddWithValue("IdSoporteTec", IdSoporteTec);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -149,6 +141,6 @@ namespace REPORTECRUD.Data
             return respuesta;
         }
 
-        
+
     }
 }

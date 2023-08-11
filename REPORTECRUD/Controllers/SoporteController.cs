@@ -6,12 +6,12 @@ using System.Data;
 
 namespace REPORTECRUD.Controllers
 {
-    public class ReporteController : Controller
+    public class SoporteController : Controller
     {
-        ReporteDatos _reporteDatos = new ReporteDatos();
+        SoporteDatos _SoporteDatos = new SoporteDatos();
         public IActionResult Listar()
         {
-            var lista = _reporteDatos.Listar();
+            var lista = _SoporteDatos.Listar();
             return View(lista);
         }
         [HttpGet]
@@ -21,10 +21,10 @@ namespace REPORTECRUD.Controllers
         }
 
         [HttpPost]
-        public IActionResult Guardar(Reporte model)
+        public IActionResult Guardar(SoporteTecnico model)
         {
-           
-            var UsuarioCreado = _reporteDatos.InsertarReporte(model);
+
+            var UsuarioCreado = _SoporteDatos.InsertarSoporte(model);
             if (UsuarioCreado)
             {
                 return RedirectToAction("Listar");
@@ -37,20 +37,20 @@ namespace REPORTECRUD.Controllers
 
 
         }
-        public IActionResult Editar(int IdReporte)
+        public IActionResult Editar(int IdSoporteTec)
         {
-            Reporte _reportedatos = _reporteDatos.ObtenerReportes(IdReporte);
+            var _reportedatos = _SoporteDatos.ObtenerSoportes(IdSoporteTec);
             return View(_reportedatos);
 
         }
         [HttpPost]
-        public IActionResult Editar(Reporte model)
+        public IActionResult Editar(SoporteTecnico model)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            var respuesta = _reporteDatos.ActualizarReporte(model);
+            var respuesta = _SoporteDatos.ActualizarSoporte(model);
             if (respuesta)
             {
                 return RedirectToAction("Listar");
@@ -61,21 +61,21 @@ namespace REPORTECRUD.Controllers
             }
 
         }
-        public IActionResult Eliminar(int IdReporte)
+        public IActionResult Eliminar(int IdSoporteTec)
         {
-            var reporte = _reporteDatos.ObtenerReportes(IdReporte);
-            if (reporte == null)
+            var soporte = _SoporteDatos.ObtenerSoportes(IdSoporteTec);
+            if (soporte.IdSoporteTec == null)
             {
-                return NotFound(); // Otra acción adecuada si no se encuentra el reporte
+                return NotFound(); // Manejar el caso donde no se encuentra el registro
             }
 
-            return View(reporte);
+            return View(soporte); // Pasar el objeto SoporteTecnico a la vista
         }
 
         [HttpPost]
-        public IActionResult Eliminar(Reporte model)
+        public IActionResult Eliminar(SoporteTecnico model)
         {
-            var respuesta = _reporteDatos.EliminarReportes(model.IdReporte);
+            var respuesta = _SoporteDatos.EliminarSoporteTecnico(model.IdSoporteTec);
             if (respuesta)
             {
                 return RedirectToAction("Listar");
@@ -85,6 +85,7 @@ namespace REPORTECRUD.Controllers
                 return View(model);
             }
         }
+
 
     }
 }

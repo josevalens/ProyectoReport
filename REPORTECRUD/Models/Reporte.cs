@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel.DataAnnotations;
 namespace REPORTECRUD.Models
 
 {
@@ -13,6 +14,10 @@ namespace REPORTECRUD.Models
         public DateTime FechaCreacion { get; set; }
         [Required(ErrorMessage = "El campo es obligatorio")]
         public string? Problematica { get; set; }
+        //[Required(ErrorMessage = "El campo es obligatorio")]
+        [BindNever]
+        public string? IdUsuario2 { get; set; }
+
 
 
     }
