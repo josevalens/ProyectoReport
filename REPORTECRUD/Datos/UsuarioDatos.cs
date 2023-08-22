@@ -7,12 +7,12 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace REPORTECRUD.Data
 {
-    public class SoporteDatos
+    public class UsuarioDatos
     {
-        public List<SoporteTecnico> Listar()
+        public List<UsuarioModelo> Listar()
         {
             //Crear Lista Vacia
-            var oCrear = new List<SoporteTecnico>();
+            var oCrear = new List<UsuarioModelo>();
 
             //Crear instacia
             var cr = new Conexion();
@@ -24,18 +24,19 @@ namespace REPORTECRUD.Data
                 conexion.Open();
 
                 //Comando a ejecutar
-                SqlCommand cmd = new SqlCommand("SeleccionarSoporteTecnico", conexion);
+                SqlCommand cmd = new SqlCommand("ObtenerUsuarios", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oCrear.Add(new SoporteTecnico()
+                        oCrear.Add(new UsuarioModelo()
                         {
-                            IdSoporteTec = Convert.ToInt32(dr["IdSoporteTec"]),
-                            Mensaje = dr["Mensaje"].ToString(),
-                            
+                            IdUsuario = Convert.ToInt32(dr["IdUsuario"]),
+                            Nombre = dr["Nombre"].ToString(),
+                            Correo = dr["Correo"].ToString(),
+                            Contraseña = dr["Contraseña"].ToString(),
                         });
                     }
                 }
@@ -43,31 +44,33 @@ namespace REPORTECRUD.Data
             return oCrear;
         }
 
-        public SoporteTecnico ObtenerSoportes(int IdSoporteTec)
+        public UsuarioModelo ObtenerUsuarios(int IdUsuario)
         {
-            var oSoporte = new SoporteTecnico();
+            var oUsuario = new UsuarioModelo();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSql()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("ObtenerSoporteId", conexion);
-                cmd.Parameters.AddWithValue("IdSoporteTec", IdSoporteTec);
+                SqlCommand cmd = new SqlCommand("ObtenerUsuariosId", conexion);
+                cmd.Parameters.AddWithValue("IdUsuario", IdUsuario);
                 cmd.CommandType = CommandType.StoredProcedure;
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oSoporte.IdSoporteTec = Convert.ToInt32(dr["IdSoporteTec"]);
-                        oSoporte.Mensaje = dr["Mensaje"].ToString();
+                        oUsuario.IdUsuario = Convert.ToInt32(dr["IdUsuario"]);
+                        oUsuario.Nombre = dr["Nombre"].ToString();
+                        oUsuario.Correo = dr["Correo"].ToString();
+                        oUsuario.Contraseña =dr["Contraseña"].ToString(); ;
                        
                     }
                 }
             }
-            return oSoporte;
+            return oUsuario;
         }
 
-        public bool InsertarSoporte(SoporteTecnico model)
+        public bool InsertarUsuario(UsuarioModelo model)
         {
             bool respuesta;
             try
@@ -76,10 +79,10 @@ namespace REPORTECRUD.Data
                 using (var conexion = new SqlConnection(cn.getCadenaSql()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("InsertarSoporteTecnico", conexion);
-                    cmd.Parameters.AddWithValue("mensaje", model.Mensaje);
-                    
-                    
+                    SqlCommand cmd = new SqlCommand("InsertarUsuario", conexion);
+                    cmd.Parameters.AddWithValue("Nombre", model.Nombre);
+                    cmd.Parameters.AddWithValue("Correo", model.Correo);
+                    cmd.Parameters.AddWithValue("Contraseña", model.Contraseña);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -93,7 +96,7 @@ namespace REPORTECRUD.Data
             return respuesta;
 
         }
-        public bool ActualizarSoporte(SoporteTecnico model)
+        public bool ActualizarUsuario(UsuarioModelo model)
         {
             bool respuesta;
             try
@@ -102,9 +105,11 @@ namespace REPORTECRUD.Data
                 using (var conexion = new SqlConnection(cn.getCadenaSql()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("ActualizarSoporteTecnico", conexion);
-                    cmd.Parameters.AddWithValue("IdSoporteTec", model.IdSoporteTec);
-                    cmd.Parameters.AddWithValue("Mensaje", model.Mensaje);
+                    SqlCommand cmd = new SqlCommand("ActualizarUsuario", conexion);
+                    cmd.Parameters.AddWithValue("IdUsuario", model.IdUsuario);
+                    cmd.Parameters.AddWithValue("Nombre", model.Nombre);
+                    cmd.Parameters.AddWithValue("Correo", model.Correo);
+                    cmd.Parameters.AddWithValue("Contraseña", model.Contraseña);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -117,7 +122,7 @@ namespace REPORTECRUD.Data
             }
             return respuesta;
         }
-        public bool EliminarSoporteTecnico(int IdSoporteTec)
+        public bool EliminarUsuarios(int IdUsuario)
         {
             bool respuesta;
             try
@@ -126,8 +131,8 @@ namespace REPORTECRUD.Data
                 using (var conexion = new SqlConnection(cn.getCadenaSql()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("EliminarSoporteTecnico", conexion);
-                    cmd.Parameters.AddWithValue("IdSoporteTec", IdSoporteTec);
+                    SqlCommand cmd = new SqlCommand("EliminarUsuario", conexion);
+                    cmd.Parameters.AddWithValue("IdUsuario", IdUsuario);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }

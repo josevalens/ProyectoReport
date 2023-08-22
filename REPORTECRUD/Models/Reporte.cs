@@ -7,16 +7,20 @@ namespace REPORTECRUD.Models
     {
         public int IdReporte { get; set; }
         [Required(ErrorMessage = "El campo es obligatorio")]
-        public string? ubicacion { get; set; }
-        [Required(ErrorMessage = "El campo es obligatorio")]
-        public string? TipoReporte { get; set; }
-        [Required(ErrorMessage = "El campo es obligatorio")]
         public DateTime FechaCreacion { get; set; }
         [Required(ErrorMessage = "El campo es obligatorio")]
         public string? Problematica { get; set; }
         //[Required(ErrorMessage = "El campo es obligatorio")]
         [BindNever]
         public string? IdUsuario2 { get; set; }
+
+        public TipoReporteModel? refTipoReporte { get; set; }
+        [Required(ErrorMessage = "El campo es obligatorio")]
+
+
+
+        public UbicacionModel? refUbicacion { get; set; }
+
 
 
 

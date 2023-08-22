@@ -1,0 +1,64 @@
+﻿@model REPORTECRUD.Models.UsuarioModelo;
+@{
+    ViewData["Title"] = "Guardar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<header class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">REPOR-T</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Invitario" asp-action="Listar">Inventario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Reporte" asp-action="Listar">Reportes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <h1 class="text-center text-dark mt-4">Guardar</h1>
+
+    <div class="card col-12 col-md-8 mx-auto">
+        <div class="card-header bg-dark text-light">
+            Crear Usuario
+        </div>
+        <div class="card-body">
+            <form asp-action="Guardar" asp-controller="Usuario" method="post" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Nombre</label>
+                    <input asp-for="Nombre" type="text" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Correo</label>
+                    <input asp-for="Correo" type="email" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Contraseña</label>
+                    <input asp-for="Contraseña" type="password" class="form-control" />
+                </div>
+                <div class="col-md-12 text-center mt-4">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a asp-action="Listar" asp-controller="Usuario" class="btn btn-warning">Volver a la lista</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-14 mb-3 position-fixed bottom-0 end-0 p-5">
+            <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">VOLVER A MENU</a>
+        </div>
+    </div>
+</div>

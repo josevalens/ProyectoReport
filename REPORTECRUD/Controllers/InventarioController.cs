@@ -6,12 +6,12 @@ using System.Data;
 
 namespace REPORTECRUD.Controllers
 {
-    public class SoporteController : Controller
+    public class InventarioController : Controller
     {
-        SoporteDatos _SoporteDatos = new SoporteDatos();
+        InventarioDatos _inventarioDatos = new InventarioDatos();
         public IActionResult Listar()
         {
-            var lista = _SoporteDatos.Listar();
+            var lista = _inventarioDatos.Listar();
             return View(lista);
         }
         [HttpGet]
@@ -21,10 +21,10 @@ namespace REPORTECRUD.Controllers
         }
 
         [HttpPost]
-        public IActionResult Guardar(SoporteTecnico model)
+        public IActionResult Guardar(InventarioModels model)
         {
 
-            var UsuarioCreado = _SoporteDatos.InsertarSoporte(model);
+            var UsuarioCreado = _inventarioDatos.Sp_RegistrarDispositivo(model);
             if (UsuarioCreado)
             {
                 return RedirectToAction("Listar");
@@ -37,20 +37,20 @@ namespace REPORTECRUD.Controllers
 
 
         }
-        public IActionResult Editar(int IdSoporteTec)
+        public IActionResult Editar(int IdDispositivo)
         {
-            var _reportedatos = _SoporteDatos.ObtenerSoportes(IdSoporteTec);
-            return View(_reportedatos);
+            var _inventariodatos = _inventarioDatos.Sp_ObtenerDispositivos(IdDispositivo);
+            return View(_inventariodatos);
 
         }
         [HttpPost]
-        public IActionResult Editar(SoporteTecnico model)
+        public IActionResult Editar(InventarioModels model)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            var respuesta = _SoporteDatos.ActualizarSoporte(model);
+            var respuesta = _inventarioDatos.Sp_EditarDispositivo(model);
             if (respuesta)
             {
                 return RedirectToAction("Listar");
@@ -61,21 +61,21 @@ namespace REPORTECRUD.Controllers
             }
 
         }
-        public IActionResult Eliminar(int IdSoporteTec)
+        public IActionResult Eliminar(int IdDispositivo)
         {
-            var soporte = _SoporteDatos.ObtenerSoportes(IdSoporteTec);
-            if (soporte.IdSoporteTec == null)
+            var dispositivo = _inventarioDatos.Sp_ObtenerDispositivos(IdDispositivo);
+            if (dispositivo == null)
             {
                 return NotFound(); // Manejar el caso donde no se encuentra el registro
             }
 
-            return View(soporte); // Pasar el objeto SoporteTecnico a la vista
+            return View(dispositivo); // Pasar el objeto SoporteTecnico a la vista
         }
 
         [HttpPost]
-        public IActionResult Eliminar(SoporteTecnico model)
+        public IActionResult Eliminar(InventarioModels model)
         {
-            var respuesta = _SoporteDatos.EliminarSoporteTecnico(model.IdSoporteTec);
+            var respuesta = _inventarioDatos.Sp_EliminarDispositivo(model.IdDispositivo);
             if (respuesta)
             {
                 return RedirectToAction("Listar");
@@ -85,7 +85,6 @@ namespace REPORTECRUD.Controllers
                 return View(model);
             }
         }
-
 
     }
 }

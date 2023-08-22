@@ -1,0 +1,48 @@
+﻿@model IEnumerable<REPORTECRUD.Models.InfoReporteModel>
+@{
+    ViewData["Title"] = "Listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Listar</h1>
+
+<p>
+    <a asp-action="Guardar" asp-controller="Reporte" class="btn btn-primary btn-sm">Nuevo reporte</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>IdReporte</th>
+                <th>Fecha de Creación</th>
+                <th>Problemática</th>
+                <th>Nombre de Reporte</th>
+                <th>Nombre de Ubicación</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdReporte)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaCreacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Problematica)
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.NombreReporte)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NombreUbicacion)</td>
+                    <td>
+                        <a asp-action="Editar" asp-controller="Reporte" asp-route-IdReporte="@item.IdReporte">Editar</a>
+                        <a asp-action="Eliminar" asp-controller="Reporte" asp-route-IdReporte="@item.IdReporte">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

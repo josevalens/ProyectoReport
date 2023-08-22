@@ -4,40 +4,34 @@ using System.Data;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Security.Cryptography.X509Certificates;
 
-
 namespace REPORTECRUD.Data
 {
-    public class ReporteDatos
+    public class InventarioDatos
     {
-        public List<Reporte> Listar()
+        public List<InventarioModels> Listar()
         {
-            //Crear Lista Vacia
-            var oCrear = new List<Reporte>();
+            var oCrear = new List<InventarioModels>();
 
-            //Crear instacia
             var cr = new Conexion();
 
-            //Utilizar using para establecer la cadena de conexion
             using (var conexion = new SqlConnection(cr.getCadenaSql()))
             {
-                //Abrir conexion
                 conexion.Open();
 
-                //Comando a ejecutar
-                SqlCommand cmd = new SqlCommand("ObtenerReportes", conexion);
+                SqlCommand cmd = new SqlCommand("Sp_ObtenerDispositivos", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oCrear.Add(new Reporte()
+                        oCrear.Add(new InventarioModels()
                         {
-                            IdReporte = Convert.ToInt32(dr["IdReporte"]),
-                            ubicacion = dr["ubicacion"].ToString(),
-                            TipoReporte = dr["TipoReporte"].ToString(),
-                            FechaCreacion = (DateTime)dr["FechaCreacion"],
-                            Problematica = dr["Problematica"].ToString(),
+                            IdDispositivo = Convert.ToInt32(dr["IdDispositivo"]),
+                            Tipo = dr["Tipo"].ToString(),
+                            Nombre = dr["Nombre"].ToString(),
+                            Modelo = dr["Modelo"].ToString(),
+                            Marca = dr["Marca"].ToString(),
                         });
                     }
                 }
@@ -45,33 +39,33 @@ namespace REPORTECRUD.Data
             return oCrear;
         }
 
-        public Reporte ObtenerReportes(int IdReporte)
+        public InventarioModels Sp_ObtenerDispositivos(int IdDispositivo)
         {
-            var oReporte = new Reporte();
+            var oDispositivo = new InventarioModels();
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSql()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("ObtenerReporteId", conexion);
-                cmd.Parameters.AddWithValue("IdReporte", IdReporte);
+                SqlCommand cmd = new SqlCommand("Sp_ObtenerDispositivoId", conexion);
+                cmd.Parameters.AddWithValue("IdDispositivo", IdDispositivo);
                 cmd.CommandType = CommandType.StoredProcedure;
                 using (var dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        oReporte.IdReporte = Convert.ToInt32(dr["IdReporte"]);
-                        oReporte.ubicacion = dr["ubicacion"].ToString();
-                        oReporte.TipoReporte = dr["TipoReporte"].ToString();
-                        oReporte.FechaCreacion = (DateTime)dr["FechaCreacion"];
-                        oReporte.Problematica = dr["Problematica"].ToString();
+                        oDispositivo.IdDispositivo = Convert.ToInt32(dr["IdDispositivo"]);
+                        oDispositivo.Tipo = dr["Tipo"].ToString();
+                        oDispositivo.Nombre = dr["Nombre"].ToString();
+                        oDispositivo.Modelo = dr["Modelo"].ToString();
+                        oDispositivo.Marca = dr["Marca"].ToString();
                     }
                 }
             }
-            return oReporte;
+            return oDispositivo;
         }
 
-        public bool InsertarReporte(Reporte model)
+        public bool Sp_RegistrarDispositivo(InventarioModels model)
         {
             bool respuesta;
             try
@@ -80,11 +74,11 @@ namespace REPORTECRUD.Data
                 using (var conexion = new SqlConnection(cn.getCadenaSql()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("InsertarReporte", conexion);
-                    cmd.Parameters.AddWithValue("Ubicacion", model.ubicacion);
-                    cmd.Parameters.AddWithValue("TipoReporte", model.TipoReporte);
-                    cmd.Parameters.AddWithValue("FechaCreacion", model.FechaCreacion);
-                    cmd.Parameters.AddWithValue("Problematica", model.Problematica);
+                    SqlCommand cmd = new SqlCommand("Sp_RegistrarDispositivo", conexion);
+                    cmd.Parameters.AddWithValue("Tipo", model.Tipo);
+                    cmd.Parameters.AddWithValue("Nombre", model.Nombre);
+                    cmd.Parameters.AddWithValue("Modelo", model.Modelo);
+                    cmd.Parameters.AddWithValue("Marca", model.Marca);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -98,7 +92,7 @@ namespace REPORTECRUD.Data
             return respuesta;
 
         }
-        public bool ActualizarReporte(Reporte model)
+        public bool Sp_EditarDispositivo(InventarioModels model)
         {
             bool respuesta;
             try
@@ -107,12 +101,12 @@ namespace REPORTECRUD.Data
                 using (var conexion = new SqlConnection(cn.getCadenaSql()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("ActualizarReporte", conexion);
-                    cmd.Parameters.AddWithValue("IdReporte", model.IdReporte);
-                    cmd.Parameters.AddWithValue("Ubicacion", model.ubicacion);
-                    cmd.Parameters.AddWithValue("TipoReporte", model.TipoReporte);
-                    cmd.Parameters.AddWithValue("FechaCreacion", model.FechaCreacion);
-                    cmd.Parameters.AddWithValue("Problematica", model.Problematica);
+                    SqlCommand cmd = new SqlCommand("Sp_EditarDispositivo", conexion);
+                    cmd.Parameters.AddWithValue("IdDispositivo", model.IdDispositivo);
+                    cmd.Parameters.AddWithValue("Tipo", model.Tipo);
+                    cmd.Parameters.AddWithValue("Nombre", model.Nombre);
+                    cmd.Parameters.AddWithValue("Modelo", model.Modelo);
+                    cmd.Parameters.AddWithValue("Marca", model.Marca);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -125,7 +119,7 @@ namespace REPORTECRUD.Data
             }
             return respuesta;
         }
-        public bool EliminarReportes(int IdReporte)
+        public bool Sp_EliminarDispositivo(int IdDispositivo)
         {
             bool respuesta;
             try
@@ -134,8 +128,8 @@ namespace REPORTECRUD.Data
                 using (var conexion = new SqlConnection(cn.getCadenaSql()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("EliminarReporte", conexion);
-                    cmd.Parameters.AddWithValue("IdReporte", IdReporte);
+                    SqlCommand cmd = new SqlCommand("Sp_EliminarDispositivo", conexion);
+                    cmd.Parameters.AddWithValue("IdDispositivo", IdDispositivo);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -148,7 +142,5 @@ namespace REPORTECRUD.Data
             }
             return respuesta;
         }
-
-        
     }
 }

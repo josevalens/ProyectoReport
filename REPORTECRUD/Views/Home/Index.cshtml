@@ -2,7 +2,61 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Tus enlaces a hojas de estilo y scripts aquí -->
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-dark border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">REPOR-T</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="CerrarSesion">Cerrar Sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="text-center">
+            <h1 class="display-4">Hola @ViewData["Mensaje"]</h1>
+        </div>
+        <div class="text-center">
+            <p class="fs-3">BIENVENIDO A REPOR-T</p>
+        </div>
+        <div class="text-center">
+            <p class="fs-4">Donde podrás generar reportes de equipos de cómputo en la Escuela UTS</p>
+        </div>
+
+        <div class="text-center mt-5">
+            <a asp-action="Listar" asp-controller="Reporte" class="d-block mb-4">
+                <button type="button" class="btn btn-outline-dark btn-lg btn-block">Reportes</button>
+            </a>
+            <a asp-action="Listar" asp-controller="Usuario" class="d-block mb-4">
+                <button type="button" class="btn btn-outline-dark btn-lg btn-block">Usuarios</button>
+            </a>
+            <a asp-action="Listar" asp-controller="Inventario" class="d-block">
+                <button type="button" class="btn btn-outline-dark btn-lg btn-block">Inventario</button>
+            </a>
+           
+
+
+        </div>
+    </div>
+
+    <!-- Enlaces a scripts y cierre de body y html -->
+</body>
+</html>
